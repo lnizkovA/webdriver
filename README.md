@@ -1,8 +1,8 @@
 # webdriver
 
-testng-pasterbin-test-task1.xml
-task I Can Win
-ри выполнении задания необходимо использовать возможности Selenium WebDriver, юнит-тест фреймворка и концепцию Page Object. Автоматизировать следующий сценарий:
+<b>testng-pasterbin-test-task1.xml<b>      task I Can Win
+   
+При выполнении задания необходимо использовать возможности Selenium WebDriver, юнит-тест фреймворка и концепцию Page Object. Автоматизировать следующий сценарий:
 
 Открыть https://pastebin.com или аналогичный сервис в любом браузере
 Создать New Paste со следующими деталями:
@@ -13,8 +13,8 @@ task I Can Win
 * Paste Name / Title: "helloweb"
 
 
-testng-pasterbin-test-task2.xml
-task Bring It On
+<b>testng-pasterbin-test-task2.xml<b>       task Bring It On
+   
 При выполнении задания необходимо использовать возможности Selenium WebDriver, юнит-тест фреймворка и концепцию Page Object. Автоматизировать следующий сценарий:
 
 Открыть https://pastebin.com  или аналогичный сервис в любом браузере
@@ -39,7 +39,8 @@ git push origin master --force
 * Проверить что код соответствует введенному в пункте 2
 
 
-testng-all-google-calculator.xml
+<b>testng-smoke-google-calculator.xml<b>
+   
 Содержит тест:
 1. Открыть https://cloud.google.com/ 
 2. Нажав кнопку поиска по порталу вверху страницы, ввести в поле поиска"Google Cloud Platform Pricing Calculator"
@@ -48,8 +49,8 @@ testng-all-google-calculator.xml
 
 
 
-testng-all-google-calculator.xml
-Hardcore  + задание с курса FrameWork 
+<b>testng-all-google-calculator.xml<b>       Hardcore  + задание с курса FrameWork 
+   
 При выполнении задания необходимо использовать возможности Selenium WebDriver, юнит-тест фреймворка и концепцию Page Object. Автоматизировать следующий сценарий:
 
 1. Открыть https://cloud.google.com/ 
