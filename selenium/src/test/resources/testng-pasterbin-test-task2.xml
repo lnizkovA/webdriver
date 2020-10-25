@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">-->
+<suite name="Pastebin Tests">
+    <test verbose="2" preserve-order="true" name="Pastebin task2">
+        <parameter name="title" value="how to gain dominance among developers" />
+        <parameter name="fileName" value="src/test/resources/fileWithBashCode.txt" />
+        <parameter name="highlightingLanguage" value="Bash" />
+        <classes>
+            <class name="com.epam.pastebincomtests.TestPastebinPasteFileWithBashCode">
+                <methods>
+                    <include name="testCreatePasteWithBashCode"/>
+                    <include name="testIsFilesEqual" />
+                    <include name="testCheckIsBashSyntax" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">-->
+<suite name="Pastebin Tests">
+    <test verbose="2" preserve-order="true" name="Pastebin task1">
+        <parameter name="title" value="helloweb" />
+        <parameter name="text" value="Hello from WebDriver" />
+        <classes>
+            <class name="com.epam.pastebincomtests.TestPastebinTask1">
+                <methods>
+                    <include name="testCreateNewPaste"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

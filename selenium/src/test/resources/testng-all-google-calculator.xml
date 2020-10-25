@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">-->
+<suite name="Google Calculator All Tests">
+
+    <test name="Search Google Cloud Pricing Calculator Tests" verbose="2" preserve-order="true" >
+        <classes>
+                        <class name="com.epam.googlecalculatortests.TestSearchResultPage"/>
+        </classes>
+    </test>
+    <test name="Open Google Cloud Pricing Calculator Via Search Tests" verbose="2" preserve-order="true" >
+        <classes>
+            <class name="com.epam.googlecalculatortests.TestOpenGoogleCalculatorViaSearch"/>
+        </classes>
+    </test>
+    <test name="Google Cloud Pricing Calculator Tests" verbose="2" preserve-order="true" >
+        <classes>
+            <class name="com.epam.googlecalculatortests.TestGoogleGoogleCloudPlatformPricingCalculator"/>
+    </classes>
+</test>
+</suite>
