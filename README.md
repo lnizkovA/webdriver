@@ -1,6 +1,6 @@
 # webdriver
 
-<b>testng-pasterbin-test-task1.xml<b>      task I Can Win
+<b>testng-pasterbin-test-task1.xml</b>      task I Can Win
    
 При выполнении задания необходимо использовать возможности Selenium WebDriver, юнит-тест фреймворка и концепцию Page Object. Автоматизировать следующий сценарий:
 
@@ -13,7 +13,7 @@
 * Paste Name / Title: "helloweb"
 
 
-<b>testng-pasterbin-test-task2.xml<b>       task Bring It On
+<b>testng-pasterbin-test-task2.xml</b>       task Bring It On
    
 При выполнении задания необходимо использовать возможности Selenium WebDriver, юнит-тест фреймворка и концепцию Page Object. Автоматизировать следующий сценарий:
 
@@ -39,7 +39,7 @@ git push origin master --force
 * Проверить что код соответствует введенному в пункте 2
 
 
-<b>testng-smoke-google-calculator.xml<b>
+<b>testng-smoke-google-calculator.xml</b>
    
 Содержит тест:
 1. Открыть https://cloud.google.com/ 
@@ -49,7 +49,7 @@ git push origin master --force
 
 
 
-<b>testng-all-google-calculator.xml<b>       Hardcore  + задание с курса FrameWork 
+<b>testng-all-google-calculator.xml</b>       Hardcore  + задание с курса FrameWork 
    
 При выполнении задания необходимо использовать возможности Selenium WebDriver, юнит-тест фреймворка и концепцию Page Object. Автоматизировать следующий сценарий:
 
