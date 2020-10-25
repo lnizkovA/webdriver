@@ -1,6 +1,8 @@
 package com.epam.pastebincom.page;
 
 import com.epam.pastebincom.util.Utils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,6 +19,8 @@ public class PastebinWithCreatedPastePage {
 
     private WebDriver driver;
     private WebDriverWait wait;
+
+    private final Logger logger = LogManager.getRootLogger();
 
     @FindBy(css = "div[class='info-top']")
     private WebElement infoTop;
@@ -42,7 +46,7 @@ public class PastebinWithCreatedPastePage {
 
     public String getTitleOfPaste() {
         wait.until(ExpectedConditions.visibilityOf(infoTop));
-        System.out.println("Created paste has title = " + infoTop.getText());
+        logger.info("Created paste has title = " + infoTop.getText());
         return infoTop.getText();
     }
 
@@ -54,7 +58,7 @@ public class PastebinWithCreatedPastePage {
     public boolean isCodeEqualsToPastedText(String fileName) {
         try {
             wait.until(ExpectedConditions.visibilityOfAllElements(elementsOfLiDivTags));
-            System.out.println("elementsOfLiDivTag.size() = " + elementsOfLiDivTags.size());
+            logger.info("elementsOfLiDivTag.size() = " + elementsOfLiDivTags.size());
             File file1 = new File(fileName);
             return Utils.isFilesHaveTheSameContent(file1, Utils.writeTextOfWebElementsToFile(elementsOfLiDivTags));
         } catch (IOException | TimeoutException | NoSuchElementException e) {

@@ -10,9 +10,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import java.io.File;
-import java.io.IOException;
-
 public class TestPastebinPasteFileWithBashCode extends TestBase{
 
     private PastebinHomePage pastebinHomePage;
@@ -27,7 +24,6 @@ public class TestPastebinPasteFileWithBashCode extends TestBase{
     @Parameters({"title", "fileName", "highlightingLanguage"})
     @Test
     public void testCreatePasteWithBashCode(String title, String fileName, String highlightingLanguage){
-        System.out.println("RUN testCreatePasteWithBashCode");
         pastebinHomePage.openPage()
                 .typeTextFromFile(fileName)
                 .selectHighlightingValue(highlightingLanguage)
@@ -40,13 +36,11 @@ public class TestPastebinPasteFileWithBashCode extends TestBase{
     @Parameters({"fileName"})
     @Test (dependsOnMethods = "testCreatePasteWithBashCode")
     public void testIsFilesEqual(String fileName) {
-        System.out.println("RUN testIsFilesEqual");
         Assert.assertTrue(pastebinWithCreatedPastePage.isCodeEqualsToPastedText(fileName), "Code of generated page and input text are DIFFERENT!");
     }
 
     @Test(dependsOnMethods = "testCreatePasteWithBashCode")
     public void testCheckIsBashSyntax(){
-        System.out.println("RUN testCheckIsBashSyntax");
         Assert.assertTrue(pastebinWithCreatedPastePage.isSyntaxBash(), "Paste code doen NOT belong to Bash syntax!");
     }
 

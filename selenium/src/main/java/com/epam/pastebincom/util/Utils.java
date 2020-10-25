@@ -1,15 +1,11 @@
 package com.epam.pastebincom.util;
 
-import org.apache.commons.exec.util.StringUtils;
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.Color;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-import java.util.Arrays;
 import java.util.List;
 
 public class Utils {
@@ -37,10 +33,6 @@ public class Utils {
 
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
                 for (WebElement element : elements) {
-                    System.out.println("element.getText() = " + element.getText());
-                    System.out.println("color = " + element.getCssValue("color"));
-                    System.out.println("color asHex = " + Color.fromString(element.getCssValue("color")).asHex());
-                    // git = #c20cb9   ; plain text = #660033; "text" = #ff0000
                     if(element.getText().replace("\u00a0", "").trim().isEmpty()) {
                         break;
                     }
