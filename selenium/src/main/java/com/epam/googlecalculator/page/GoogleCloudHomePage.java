@@ -42,8 +42,6 @@ public class GoogleCloudHomePage extends AbstractPage {
         Actions builder = new Actions(driver);
         Action seriesOfActions = builder.moveToElement(searchButton)
                 .click()
-                .sendKeys(Keys.CONTROL+"a")
-                .sendKeys(Keys.BACK_SPACE)
                 .sendKeys(searchField, term)
                 .sendKeys(Keys.ENTER)
                 .build();

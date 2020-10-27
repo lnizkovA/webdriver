@@ -11,11 +11,9 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.io.IOException;
 import java.util.ArrayList;
 
-public class TestGoogleGoogleCloudPlatformPricingCalculator extends TestBase {
+public class TestGoogleCloudPlatformPricingCalculator extends TestBase {
 
     private static final String TERM = "Google Cloud Platform Pricing Calculator";
 
@@ -135,7 +133,7 @@ public class TestGoogleGoogleCloudPlatformPricingCalculator extends TestBase {
 
         driver.switchTo().window(tabs.get(0));
         logger.info("Switch to page '" + driver.getTitle() + "'.");
-        googleCalculatorPage.switchToFrame();
+//        googleCalculatorPage.switchToFrame();
         googleCalculatorPage.typeEmailToEmailForm(tenMinutEmail)
                 .clickSendEmailButton();
 

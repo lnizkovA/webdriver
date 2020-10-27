@@ -3,16 +3,14 @@ package com.epam.googlecalculator.page;
 import com.epam.googlecalculator.util.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
 
 public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
 
@@ -84,10 +82,10 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
     @FindBy(css = "div[class*='md-clickable'] md-option[class='md-ink-ripple'][value='1'] div[class='md-text']")
     private WebElement committedUsageOption;
 
-    @FindBy(css = "button[aria-label='Add to Estimate']")
+    @FindBy(css = "button[aria-label='Add to Estimate']:enabled")
     private WebElement addToEstimate;
 
-    @FindBy(css = "h2[class='md-title'] b[class='ng-binding'")
+    @FindBy(css = "h2[class='md-title'] b[class='ng-binding']")
     private WebElement totalEstimatedCost;
 
     @FindBy(css = "md-list-item[class*='md-1-line md-no-proxy'] div[class='md-list-item-text ng-binding']")
@@ -150,29 +148,18 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
     }
 
     public GoogleCloudPlatformPricingCalculatorPage selectMachineClass() {
-        machineClass.click();
-//        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("md-option[class='md-ink-ripple'][value='regular'] div[class='md-text']")));
-        wait.until(ExpectedConditions.visibilityOf(machineClassOption));
-        logger.info("Machine Class option '"+machineClassOption.getText()+"' selected.");
-        machineClassOption.click();
-        return this;
+        return selectWebElementAndItsOption(machineClass, machineClassOption);
     }
 
     public GoogleCloudPlatformPricingCalculatorPage selectSeries() {
-        series.click();
-        wait.until(ExpectedConditions.visibilityOf(seriesOption));
-        logger.info("Series option '"+seriesOption.getText()+"' selected.");
-        seriesOption.click();
-        return this;
+        return selectWebElementAndItsOption(series, seriesOption);
     }
 
 
     public GoogleCloudPlatformPricingCalculatorPage selectMachineType() {
-        machineType.click();
-        wait.until(ExpectedConditions.visibilityOf(machineTypeOption));
-        logger.info("Machine Type option '"+machineTypeOption.getText()+"' selected.");
-        machineTypeOption.click();
-        return this;
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView();", machineClass);
+        return selectWebElementAndItsOption(machineType, machineTypeOption);
     }
 
     public GoogleCloudPlatformPricingCalculatorPage checkAddGPUs() {
@@ -182,46 +169,32 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
     }
 
     public GoogleCloudPlatformPricingCalculatorPage selectNumberOfGPUs() {
-        numberOfGPUs.click();
-        wait.until(ExpectedConditions.visibilityOf(numberOfGPUsOption));
-        logger.info("Number of GPUs option '"+numberOfGPUsOption.getText()+"' selected.");
-        numberOfGPUsOption.click();
-        return this;
+        return selectWebElementAndItsOption(numberOfGPUs, numberOfGPUsOption);
     }
 
     public GoogleCloudPlatformPricingCalculatorPage selectTypeOfGPUs() {
-        typeOfGPUs.click();
-        wait.until(ExpectedConditions.visibilityOf(typeOfGPUsOption));
-        logger.info("Type of GPUs option '"+typeOfGPUsOption.getText()+"' selected.");
-        typeOfGPUsOption.click();
-        return this;
+        return selectWebElementAndItsOption(typeOfGPUs, typeOfGPUsOption);
     }
 
     public GoogleCloudPlatformPricingCalculatorPage selectLocalSSD() {
-        localSSD.click();
-        wait.until(ExpectedConditions.visibilityOf(localSSDOption));
-        logger.info("Local SSD option '"+localSSDOption.getText()+"' selected.");
-        localSSDOption.click();
-        return this;
+        return selectWebElementAndItsOption(localSSD, localSSDOption);
     }
 
     public GoogleCloudPlatformPricingCalculatorPage selectDatacenterLocation() {
-        datacenterLocation.click();
-        wait.until(ExpectedConditions.visibilityOf(datacenterLocationOption));
-        logger.info("Datacenter location '"+datacenterLocationOption.getText()+"' selected.");
-        datacenterLocationOption.click();
-        return this;
+        return selectWebElementAndItsOption(datacenterLocation, datacenterLocationOption);
     }
 
     public GoogleCloudPlatformPricingCalculatorPage selectCommittedUsage() {
-        committedUsage.click();
-        wait.until(ExpectedConditions.visibilityOf(committedUsageOption));
-        logger.info("Committed Usage '"+committedUsageOption.getText()+"' selected.");
-        committedUsageOption.click();
-        return this;
+        if (System.getProperty("browser").equals("firefox")) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", committedUsage);
+        }
+        logger.info("SIZE:" + driver.findElements(By.cssSelector("md-select[ng-model='listingCtrl.computeServer.cud']")).size());
+        return selectWebElementAndItsOption(committedUsage, committedUsageOption);
     }
 
     public void clickAddEstimateButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(addToEstimate));
+        logger.info("addToEstimate.isEnabled(): " + addToEstimate.isEnabled());
         addToEstimate.click();
         logger.info("'Add to Estimate' button clicked.");
     }
@@ -233,6 +206,8 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
 
     public boolean isTotalEstimatedCostAvailable() {
         try {
+//            ((JavascriptExecutor) driver).executeScript(
+//                    "arguments[0].scrollIntoView();", totalEstimatedCost);
             wait.until(ExpectedConditions.visibilityOf(totalEstimatedCost));
             logger.info(totalEstimatedCost.getText());
             return totalEstimatedCost.isDisplayed();
@@ -284,6 +259,8 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
 
     public boolean isYourEstimatedFormAvailable(){
         try {
+            ((JavascriptExecutor) driver).executeScript(
+                    "arguments[0].scrollIntoView();", emailYourEstimateForm);
             wait.until(ExpectedConditions.visibilityOf(emailYourEstimateForm));
             return emailYourEstimateForm.isEnabled();
         }  catch (TimeoutException | NoSuchElementException e) {
@@ -298,9 +275,19 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
     }
 
     public void switchToFrame() {
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.switchTo().frame(0);
         driver.switchTo().frame(driver.findElement(By.id("myFrame")));
         logger.info("Switch to frame.");
+        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+    }
+
+    private GoogleCloudPlatformPricingCalculatorPage selectWebElementAndItsOption(WebElement element, WebElement elementOption){
+        element.click();
+        wait.until(ExpectedConditions.visibilityOf(elementOption));
+        logger.info("'"+elementOption.getText()+"' selected.");
+        elementOption.click();
+        return this;
     }
 
     public void switchToDefaultContent() {

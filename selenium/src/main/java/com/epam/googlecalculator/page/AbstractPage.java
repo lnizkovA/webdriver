@@ -7,7 +7,7 @@ public abstract class AbstractPage {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
-    protected final int WAIT_TIMEOUT_SECONDS = 10;
+    protected final int WAIT_TIMEOUT_SECONDS = 20;
 
     protected AbstractPage(WebDriver driver)
     {
