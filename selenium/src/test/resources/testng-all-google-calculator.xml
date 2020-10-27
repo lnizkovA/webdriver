@@ -14,7 +14,7 @@
     </test>
     <test name="Google Cloud Pricing Calculator Tests" verbose="2" preserve-order="true" >
         <classes>
-            <class name="com.epam.googlecalculatortests.TestGoogleGoogleCloudPlatformPricingCalculator"/>
+            <class name="com.epam.googlecalculatortests.TestGoogleCloudPlatformPricingCalculator"/>
     </classes>
 </test>
 </suite>
