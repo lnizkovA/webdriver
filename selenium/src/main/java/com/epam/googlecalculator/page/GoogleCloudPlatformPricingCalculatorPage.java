@@ -251,6 +251,9 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
     }
 
     public GoogleCloudPlatformPricingCalculatorPage typeEmailToEmailForm(String email){
+        if(System.getProperty("browser").equals("chrome")){
+            switchToFrame();
+        }
         wait.until(ExpectedConditions.visibilityOf(emailYourEstimateForm));
         emailInputField.sendKeys(email);
         logger.info("Email = "+email+" typed to email field. ");
