@@ -4,6 +4,8 @@ import com.epam.googlecalculator.util.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -159,6 +161,7 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
     public GoogleCloudPlatformPricingCalculatorPage selectMachineType() {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].scrollIntoView();", machineClass);
+        wait.until(ExpectedConditions.visibilityOf(machineType));
         return selectWebElementAndItsOption(machineType, machineTypeOption);
     }
 
@@ -185,10 +188,8 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
     }
 
     public GoogleCloudPlatformPricingCalculatorPage selectCommittedUsage() {
-        if (System.getProperty("browser").equals("firefox")) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", committedUsage);
-        }
-        logger.info("SIZE:" + driver.findElements(By.cssSelector("md-select[ng-model='listingCtrl.computeServer.cud']")).size());
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", committedUsage);
+        wait.until(ExpectedConditions.visibilityOf(committedUsage));
         return selectWebElementAndItsOption(committedUsage, committedUsageOption);
     }
 
@@ -206,8 +207,6 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
 
     public boolean isTotalEstimatedCostAvailable() {
         try {
-//            ((JavascriptExecutor) driver).executeScript(
-//                    "arguments[0].scrollIntoView();", totalEstimatedCost);
             wait.until(ExpectedConditions.visibilityOf(totalEstimatedCost));
             logger.info(totalEstimatedCost.getText());
             return totalEstimatedCost.isDisplayed();
