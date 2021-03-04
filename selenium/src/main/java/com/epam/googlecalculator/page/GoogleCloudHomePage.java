@@ -10,11 +10,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 public class GoogleCloudHomePage extends AbstractPage {
-
-    private final Logger logger = LogManager.getRootLogger();
 
     private static final String HOME_URL = "https://cloud.google.com/";
 
@@ -26,13 +24,12 @@ public class GoogleCloudHomePage extends AbstractPage {
 
     public GoogleCloudHomePage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
     }
 
     @Override
     public GoogleCloudHomePage openPage() {
         driver.navigate().to(HOME_URL);
-        logger.info("Page '"+driver.getTitle()+"' opened.");
+        log.info("Page '"+driver.getTitle()+"' opened.");
         return this;
     }
 
@@ -46,7 +43,7 @@ public class GoogleCloudHomePage extends AbstractPage {
                 .sendKeys(Keys.ENTER)
                 .build();
         seriesOfActions.perform();
-        logger.info("Search with term condition started.");
+        log.info("Search with term condition started.");
         return new SearchResultPage(driver);
     }
 }

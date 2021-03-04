@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 public class TestSearchResultPage extends TestBase {
 
-    private final static String TERM = "Google Cloud Platform Pricing Calculator";
+    public final static String TERM = "Google Cloud Platform Pricing Calculator";
 
     private GoogleCloudHomePage homePage;
 

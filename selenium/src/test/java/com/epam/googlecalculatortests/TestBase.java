@@ -2,6 +2,8 @@ package com.epam.googlecalculatortests;
 
 import com.epam.googlecalculator.driver.DriverSingleton;
 import com.epam.googlecalculator.util.TestListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,6 +17,8 @@ import java.util.Collections;
 public class TestBase {
 
     protected  WebDriver driver;
+
+    protected Logger logger = LogManager.getRootLogger();
 
     @BeforeTest()
     public void setUp()

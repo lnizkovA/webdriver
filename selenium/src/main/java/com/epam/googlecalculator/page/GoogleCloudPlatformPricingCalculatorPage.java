@@ -4,8 +4,6 @@ import com.epam.googlecalculator.util.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,8 +15,6 @@ import java.util.concurrent.TimeUnit;
 public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
 
     private final String GOOGLE_PRODUCTS_CALCULATOR_URL = "https://cloud.google.com/products/calculator";
-
-    private final Logger logger =  LogManager.getRootLogger();
 
     @FindBy(xpath = "*[normalize-space(text()='Google Cloud Pricing Calculator')]")
     // [@class='md-toolbar-tools flex-gt-sm-50']
@@ -109,20 +105,19 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
 
     public GoogleCloudPlatformPricingCalculatorPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
     }
 
     @Override
-    protected GoogleCloudPlatformPricingCalculatorPage openPage() {
+    public GoogleCloudPlatformPricingCalculatorPage openPage() {
         driver.navigate().to(GOOGLE_PRODUCTS_CALCULATOR_URL);
-        logger.info("Page '"+driver.getTitle()+"' opened.");
+        log.info("Page '"+driver.getTitle()+"' opened.");
         return this;
     }
 
     public boolean isOpenGoogleCalculator() {
         try {
             wait.until(ExpectedConditions.titleIs(driver.getTitle()));
-            logger.info("driver.getCurrentUrl() = " + driver.getCurrentUrl());
+            log.info("driver.getCurrentUrl() = " + driver.getCurrentUrl());
             return driver.getCurrentUrl().equals(GOOGLE_PRODUCTS_CALCULATOR_URL);
         } catch (NoSuchElementException | TimeoutException e) {
             return false;
@@ -133,19 +128,19 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
         switchToFrame();
         wait.until(ExpectedConditions.visibilityOf(computeEngine));
         computeEngine.click();
-        logger.info("Tab 'Compute Engine' selected.");
+        log.info("Tab 'Compute Engine' selected.");
         return this;
     }
 
     public GoogleCloudPlatformPricingCalculatorPage selectNumberOfInstance(int number) {
         numberOfInstance.sendKeys(Integer.toString(number));
-        logger.info("Number of instances = "+number+" is typed.");
+        log.info("Number of instances = "+number+" is typed.");
         return this;
     }
 
     public GoogleCloudPlatformPricingCalculatorPage typeWhatAreTheseInstancesFor(String line) {
         whatAreTheseInstancesFor.sendKeys(line);
-        logger.info("what Are These Instances For = "+line);
+        log.info("what Are These Instances For = "+line);
         return this;
     }
 
@@ -167,7 +162,7 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
 
     public GoogleCloudPlatformPricingCalculatorPage checkAddGPUs() {
         addGPUs.click();
-        logger.info("Checkbox 'Add GPUs' is selected" + addGPUs.getAttribute("aria-checked"));
+        log.info("Checkbox 'Add GPUs' is selected" + addGPUs.getAttribute("aria-checked"));
         return this;
     }
 
@@ -195,29 +190,29 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
 
     public void clickAddEstimateButton() {
         wait.until(ExpectedConditions.elementToBeClickable(addToEstimate));
-        logger.info("addToEstimate.isEnabled(): " + addToEstimate.isEnabled());
+        log.info("addToEstimate.isEnabled(): " + addToEstimate.isEnabled());
         addToEstimate.click();
-        logger.info("'Add to Estimate' button clicked.");
+        log.info("'Add to Estimate' button clicked.");
     }
 
     public boolean isAddToEstimateButtonClickable() {
-        logger.info("'Add To Estimate' Button = " + addToEstimate.isEnabled());
+        log.info("'Add To Estimate' Button = " + addToEstimate.isEnabled());
         return addToEstimate.isEnabled();
     }
 
     public boolean isTotalEstimatedCostAvailable() {
         try {
             wait.until(ExpectedConditions.visibilityOf(totalEstimatedCost));
-            logger.info(totalEstimatedCost.getText());
+            log.info(totalEstimatedCost.getText());
             return totalEstimatedCost.isDisplayed();
         } catch (TimeoutException | NoSuchElementException e) {
-            logger.error("Total Estimation Cost is not available.");
+            log.error("Total Estimation Cost is not available.");
             return false;
         }
     }
 
     public boolean isEstimatedInputDataCorrect(String comparedData) {
-       logger.info("Expected compared data = "+comparedData);
+       log.info("Expected compared data = "+comparedData);
         try {
             wait.until(ExpectedConditions.visibilityOfAllElements(estimatedData));
             boolean result = false;
@@ -238,14 +233,14 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
     public double getActualEstimatedCost(){
             wait.until(ExpectedConditions.visibilityOf(totalEstimatedCost));
             double actualCost = Utils.convertStringToDouble(totalEstimatedCost.getText());
-            logger.info("Actual estimated cost = "+actualCost);
+            log.info("Actual estimated cost = "+actualCost);
             return actualCost;
     }
 
     public GoogleCloudPlatformPricingCalculatorPage clickEmailEstimateButton(){
         wait.until(ExpectedConditions.visibilityOf(emailEstimateButton));
         emailEstimateButton.click();
-        logger.info("'Email Estimation' button clicked.");
+        log.info("'Email Estimation' button clicked.");
         return this;
     }
 
@@ -255,7 +250,7 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
         }
         wait.until(ExpectedConditions.visibilityOf(emailYourEstimateForm));
         emailInputField.sendKeys(email);
-        logger.info("Email = "+email+" typed to email field. ");
+        log.info("Email = "+email+" typed to email field. ");
         return this;
     }
 
@@ -266,7 +261,7 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
             wait.until(ExpectedConditions.visibilityOf(emailYourEstimateForm));
             return emailYourEstimateForm.isEnabled();
         }  catch (TimeoutException | NoSuchElementException e) {
-            logger.error("'Email your estimation form' isnot available.");
+            log.error("'Email your estimation form' isnot available.");
             return false;
         }
     }
@@ -280,14 +275,14 @@ public class GoogleCloudPlatformPricingCalculatorPage extends AbstractPage {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.switchTo().frame(0);
         driver.switchTo().frame(driver.findElement(By.id("myFrame")));
-        logger.info("Switch to frame.");
+        log.info("Switch to frame.");
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     }
 
     private GoogleCloudPlatformPricingCalculatorPage selectWebElementAndItsOption(WebElement element, WebElement elementOption){
         element.click();
         wait.until(ExpectedConditions.visibilityOf(elementOption));
-        logger.info("'"+elementOption.getText()+"' selected.");
+        log.info("'"+elementOption.getText()+"' selected.");
         elementOption.click();
         return this;
     }

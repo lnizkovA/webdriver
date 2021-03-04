@@ -22,8 +22,6 @@ public class TenMiniteEmailPage extends AbstractPage{
 
     private static final String TEN_MINUTE_EMAIL = "https://10minutemail.com/";
 
-    private final Logger logger = LogManager.getRootLogger();
-
     @FindBy(css = "div[id='copy_address']")
     private WebElement clickToCopyAddress;
 
@@ -38,13 +36,12 @@ public class TenMiniteEmailPage extends AbstractPage{
 
     public TenMiniteEmailPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
     }
 
     @Override
     public TenMiniteEmailPage openPage() {
         driver.navigate().to(TEN_MINUTE_EMAIL);
-        logger.info("Page '"+driver.getTitle()+"' opened.");
+        log.info("Page '"+driver.getTitle()+"' opened.");
         return this;
     }
 
@@ -62,20 +59,20 @@ public class TenMiniteEmailPage extends AbstractPage{
                 e.printStackTrace();
             }
         }
-        logger.info(" Generated 10minutemail = " + email);
+        log.info(" Generated 10minutemail = " + email);
         return email;
     }
 
     public int checkInboxCountNumber() {
         wait.until(ExpectedConditions.visibilityOf(emailSubject));
-        logger.info("Inbox has "+inboxCount.getText()+" email(s)");
+        log.info("Inbox has "+inboxCount.getText()+" email(s)");
         return Integer.parseInt(inboxCount.getText());
     }
 
     public TenMiniteEmailPage openEmail() {
         wait.until(ExpectedConditions.visibilityOf(emailSubject));
         emailSubject.click();
-        logger.info("Received email opened.");
+        log.info("Received email opened.");
         return this;
     }
 

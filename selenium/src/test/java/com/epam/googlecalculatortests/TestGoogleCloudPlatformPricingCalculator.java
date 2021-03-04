@@ -10,12 +10,9 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
 import java.util.ArrayList;
 
 public class TestGoogleCloudPlatformPricingCalculator extends TestBase {
-
-    private static final String TERM = "Google Cloud Platform Pricing Calculator";
 
     public static final String TESTDATA_NUMBER_OF_INSTANCES = "testdata.googlecalculator.numberOfInstances";
     public static final String TESTDATA_MACHINE_CLASS = "testdata.googlecalculator.machineClass";
@@ -25,28 +22,19 @@ public class TestGoogleCloudPlatformPricingCalculator extends TestBase {
     public static final String TESTDATA_COMMITTED_TERM = "testdata.googlecalculator.committedTerm";
     public static final String TESTDATA_EXPECTED_ESTIMATED_COST = "testdata.googlecalculator.expectedEstimationCost";
 
-
-    private final Logger logger = LogManager.getRootLogger();
-
-    private GoogleCloudHomePage homePage;
     private GoogleCloudPlatformPricingCalculatorPage googleCalculatorPage;
     private TenMiniteEmailPage tenMiniteEmailPage;
 
 
     @BeforeClass(alwaysRun = true)
     public void testClassSetUp() {
-        homePage = new GoogleCloudHomePage(driver);
         googleCalculatorPage = new GoogleCloudPlatformPricingCalculatorPage(driver);
         tenMiniteEmailPage = new TenMiniteEmailPage(driver);
     }
 
     @Test(priority = 1)
     public void testFillComputeEngineForm() {
-        System.out.println("RUN testFillComputeEngineForm");
-//        new GoogleCloudPlatformPricingCalculatorPage(driver)
-        homePage.openPage()
-                .searchTerm(driver, TERM)
-                .openCalculatorFromSearchResult()
+        googleCalculatorPage.openPage()
                 .openComputeEngineTab()
                 .selectNumberOfInstance(Integer.parseInt(TestDataReader.getTestData(TESTDATA_NUMBER_OF_INSTANCES)))
                 .typeWhatAreTheseInstancesFor("")

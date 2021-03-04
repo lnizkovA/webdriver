@@ -2,16 +2,13 @@ package com.epam.googlecalculatortests;
 
 import com.epam.googlecalculator.page.GoogleCloudHomePage;
 import com.epam.googlecalculator.page.GoogleCloudPlatformPricingCalculatorPage;
-import com.epam.googlecalculator.page.TenMiniteEmailPage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class TestOpenGoogleCalculatorViaSearch extends TestBase {
+import static com.epam.googlecalculatortests.TestSearchResultPage.TERM;
 
-    private static final String TERM = "Google Cloud Platform Pricing Calculator";
+public class TestOpenGoogleCalculatorViaSearch extends TestBase {
 
     private GoogleCloudHomePage homePage;
 
@@ -24,11 +21,11 @@ public class TestOpenGoogleCalculatorViaSearch extends TestBase {
     @Test
     public void testOpenGoogleCloudPlatformPricingCalculatorFromSearchResult() {
         System.out.println("RUN testOpenGoogleCloudPlatformPricingCalculatorFromSearchResult");
-        boolean expectedResult = homePage
+        GoogleCloudPlatformPricingCalculatorPage calculatorPage = (GoogleCloudPlatformPricingCalculatorPage) homePage
                 .openPage()
                 .searchTerm(driver, TERM)
-                .openCalculatorFromSearchResult()
-                .isOpenGoogleCalculator();
+                .openCalculatorFromSearchResult();
+        boolean expectedResult = calculatorPage.isOpenGoogleCalculator();
         Assert.assertTrue(expectedResult, "Google Calculator is not OPENed");
     }
 
